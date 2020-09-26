@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block contents %}
+    <div style="margin-top: 80px; margin-left:10px;">
+    {% if user.is_authenticated %}
+        <h1>기업명: {{user.company.com_name}} </h1>
+        <h1>주력산업: {{user.company.com_major}}</h1>
+        <h1>이메일: {{user.username}}</h1>
+    {% else %}
+        <h1>안녕안녕</h1>
+    </div>
+    {% endif %}
+{% endblock %}
