@@ -11,6 +11,7 @@ class Cloud(models.Model):
     file = models.FileField(null=True)
     filetype = models.CharField(max_length=30, null=True)
     description = models.CharField(max_length=200, null=True)
+    idx = models.AutoField(primary_key=True)
 
     def __str__(self):
         return self.subject

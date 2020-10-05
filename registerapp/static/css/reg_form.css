@@ -3,6 +3,10 @@ body {
   height: 100vh;
 }
 
+h1{
+  font-weight: 900;
+}
+
 a {
   color: #92badd;
   display: inline-block;

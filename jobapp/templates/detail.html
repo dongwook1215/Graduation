@@ -8,8 +8,10 @@
     <div>
         <div style=" background-color: rgb(111, 160, 224); width: 110px; border: 3px solid rgb(61, 131, 236); border-radius: 8px; padding: 10px; font-family: Arial; font-style: bold; font-size: 20px; color: rgb(255, 255, 255);">채용공고</div><hr><br>
         <div align="right">
-            <a href="{% url 'rewrite' job_detail.page_number %}">수정 </a> |
-            <a href="{% url 'remove' job_detail.page_number %}">삭제</a>
+            {% if job_detail.author == user %} 
+                <a href="{% url 'rewrite' job_detail.page_number %}">수정 </a> |
+                <a href="{% url 'remove' job_detail.page_number %}" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
+            {% endif %}
         </div>
     </div>
     <div align="center">

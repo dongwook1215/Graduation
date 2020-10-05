@@ -39,6 +39,7 @@ def before(request, job_id):
 def write(request):
     if request.method == "POST":
         job = Job()
+        job.author = request.user
         job.title = request.POST["title"]
         try:
             job.image = request.FILES["image"]
@@ -76,7 +77,7 @@ def remove(request, job_id):
         else:
             pass
 
-    return redirect("/")
+    return redirect("/jobapp/job")
 
 def search(request):
     jobs = Job.objects.all().order_by('-id')

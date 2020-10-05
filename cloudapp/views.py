@@ -18,8 +18,7 @@ def upload_cloud(request):
     cloud = Cloud.objects.all().filter(user=request.user.id)
     return render(request, 'upload_cloud.html',{'cloud':cloud})    
 
-def delete_file(request):
-    if request.method == 'POST':
-        cloud = Cloud.objects.get()
-        cloud.delete()
-    return render(request, 'upload_cloud.html',{'cloud':cloud}) 
+def delete(request, idx):
+    cloud = Cloud.objects.get(idx=idx)
+    cloud.delete()
+    return redirect('/upload_cloud')
