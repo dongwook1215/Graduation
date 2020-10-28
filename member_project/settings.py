@@ -147,11 +147,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.naver.com'
-EMAIL_HOST_USER = '안녕하세요 네이버 아이디를 입력해주세요'
+EMAIL_HOST_USER = '아이디'
 EMAIL_HOST_PASSWORD = get_secret("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-DEFAULT_FROM_MAIL = '안녕하세요 네이버 아이디를'
+DEFAULT_FROM_MAIL = '아이디'
 
 LOGIN_URL = '/login/'          # 로그인 URL
 LOGIN_REDIRECT_URL = '/'  # 로그인 후 URL
