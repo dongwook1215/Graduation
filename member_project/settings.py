@@ -151,7 +151,7 @@ EMAIL_HOST_USER = '안녕하세요 네이버 아이디를 입력해주세요'
 EMAIL_HOST_PASSWORD = get_secret("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-DEFAULT_FROM_MAIL = '안녕하세요 네이버 아이디를 입력해주세요'
+DEFAULT_FROM_MAIL = '안녕하세요 네이버 아이디를'
 
 LOGIN_URL = '/login/'          # 로그인 URL
 LOGIN_REDIRECT_URL = '/'  # 로그인 후 URL
