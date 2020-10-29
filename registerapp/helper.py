@@ -23,3 +23,5 @@ class EmailThread(threading.Thread):
 
 def send_mail(subject, recipient_list, body='', from_email='아이디@naver.com', fail_silently=False, html=None, *args, **kwargs):
     EmailThread(subject, body, from_email, recipient_list, fail_silently, html).start()
+
+    김유진은 저를 싫어합니다.
