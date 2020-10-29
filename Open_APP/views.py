@@ -6,8 +6,17 @@ import urllib.request
 import urllib.parse
 # Create your views here.
 
+from django.conf import settings
+import os
+import pandas as pd
+import json
+
 def main(request):
-    return render(request,'main.html')
+    excel_path = os.path.join(settings.BASE_DIR, 'excel_files', 'sample-dataset.xlsx')
+    excel_df = pd.read_excel(excel_path)
+    result=excel_df.to_json(orient='split')
+    context_dict = json.loads(result)
+    return render(request,'main.html', context_dict)
    
 def main1(request):
     raw = requests.get("https://search.naver.com/search.naver?where=news&query=경제",headers={'User-Agent':'Mozilla/5.0'})

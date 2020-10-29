@@ -4,80 +4,139 @@
 
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
-<script type="text/javascript" src="../static/js/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+
+<!-- <script type="text/javascript" src="../static/js/chart.js"></script>
 <script type="text/javascript" src="../static/js/chart_functions.js"></script>
-<script type="text/javascript" src="../static/js/display_chart.js"></script>
+<script type="text/javascript" src="../static/js/display_chart.js"></script> -->
 
-<!--<script type="text/javascript" src="../../registerapp/static/js/chart.js"></script>
-<script type="text/javascript" src="../../registerapp/static/js/chart_functions.js"></script>
-<script type="text/javascript" src="../../registerapp/static/js/display_chart.js"></script>-->
-
+<script>
+  var labels = {{ columns| safe }}
+  var data = {{ data| safe }}
+</script>
 
 <div>
-    <div id="content">
-      <div class="container-fluid">
-        <div align="center">
-          <a href="{% url 'main' %}">
+  <div id="content">
+    <div class="container-fluid">
+      <div align="center">
+        <a href="{% url 'main' %}">
           <button type="button" onClick="location.href=main"><strong>수출입 동향 차트</strong></button></a>
-          <a href="{% url 'main1' %}">
+        <a href="{% url 'main1' %}">
           <button type="button" onClick="location.href=main1"><strong>해외 수출입 뉴스</strong></button></a>
-        </div><br><br>
-        <div class="row">
-            <div class="chart1">
-                <h3>그래프를 선택하세요&nbsp;</h3><br>
-                <form id="sample_form" method="POST" action="{% url 'main' %}">
-                  {% csrf_token %}
-                  <select name="sel_chart">
-                    <option value="수출입"  selected>수출입 그래프</option>
-                    <option value="품목별">품목별 그래프</option>
-                  </select>
-                  <input type="button" value="변경">
-                </form>
-              <br><br>
-              <div class="card shadow">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">{{default_news}}그래프</h6>
-                </div>
-                <div class="card-body">
-                  <div class="chart-bar">
-                      <canvas id="line_chart"></canvas>
-                    </div>
-                </div>
+      </div><br><br>
+
+      <div class="row">
+        <div class="chart1">
+          <h3>그래프를 선택하세요&nbsp;</h3><br>
+          <form id="sample_form" method="POST" action="{% url 'main' %}">
+            {% csrf_token %}
+            <select name="sel_chart">
+              <option value="수출입" selected>수출입 그래프</option>
+              <option value="품목별">품목별 그래프</option>
+            </select>
+            <input type="button" value="변경">
+          </form>
+          <br><br>
+          <div class="card shadow">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">{{default_news}}그래프</h6>
+            </div>
+            <div class="card-body">
+              <div class="chart-bar">
+                <canvas id="chart_1"></canvas>
               </div>
             </div>
-          <div class="chart2">
-                <h3>그래프를 선택하세요&nbsp;</h3><br>
-                <form id="sample_form" method="POST" action="{% url 'main' %}">
-                  {% csrf_token %}
-                  <select name="sel_chart">
-                    <option value="수출입"  selected>수출입 그래프</option>
-                    <option value="품목별">품목별 그래프</option>
-                  </select>
-                  <input type="button" value="변경">
-                </form>
-              <br><br>
-              <div class="card shadow">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">{{default_news}}그래프</h6>
-                </div>
-                <div class="card-body">
-                  <div class="chart-bar">
-                      <canvas id="bar_chart"></canvas>
-                    </div>
-                </div>
-              </div>
           </div>
-        </div>        
+        </div>
+
       </div>
+
+      <div class="row">
+        <div class="chart1">
+          <h3>그래프를 선택하세요&nbsp;</h3><br>
+          <form id="sample_form" method="POST" action="{% url 'main' %}">
+            {% csrf_token %}
+            <select name="sel_chart">
+              <option value="수출입" selected>수출입 그래프</option>
+              <option value="품목별">품목별 그래프</option>
+            </select>
+            <input type="button" value="변경">
+          </form>
+          <br><br>
+          <div class="card shadow">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">{{default_news}}그래프</h6>
+            </div>
+            <div class="card-body">
+              <div class="chart-bar">
+                <canvas id="chart_2"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="chart2">
+          <h3>그래프를 선택하세요&nbsp;</h3><br>
+          <form id="sample_form" method="POST" action="{% url 'main' %}">
+            {% csrf_token %}
+            <select name="sel_chart">
+              <option value="수출입" selected>수출입 그래프</option>
+              <option value="품목별">품목별 그래프</option>
+            </select>
+            <input type="button" value="변경">
+          </form>
+          <br><br>
+          <div class="card shadow">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">{{default_news}}그래프</h6>
+            </div>
+            <div class="card-body">
+              <div class="chart-bar">
+                <canvas id="chart_3"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="chart1">
+          <h3>그래프를 선택하세요&nbsp;</h3><br>
+          <form id="sample_form" method="POST" action="{% url 'main' %}">
+            {% csrf_token %}
+            <select name="sel_chart">
+              <option value="수출입" selected>수출입 그래프</option>
+              <option value="품목별">품목별 그래프</option>
+            </select>
+            <input type="button" value="변경">
+          </form>
+          <br><br>
+          <div class="card shadow">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">{{default_news}}그래프</h6>
+            </div>
+            <div class="card-body">
+              <div class="chart-bar">
+                <canvas id="chart_4"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
-    <footer class="sticky-footer bg-white">
-      <div class="container my-auto">
-        <div class="copyright text-center my-auto">
-          <span>Copyright &copy; Your Website 2020</span>
-        </div>
-      </div>
-    </footer>
+
+
+<script type="text/javascript" src="../static/js/main_chart.js"></script>
+
+<footer class="sticky-footer bg-white">
+  <div class="container my-auto">
+    <div class="copyright text-center my-auto">
+      <span>Copyright &copy; Your Website 2020</span>
+    </div>
   </div>
+</footer>
+</div>
 {% endblock contents %}
