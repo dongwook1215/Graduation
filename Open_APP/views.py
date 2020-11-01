@@ -12,11 +12,52 @@ import pandas as pd
 import json
 
 def main(request):
-    excel_path = os.path.join(settings.BASE_DIR, 'excel_files', 'sample-dataset.xlsx')
-    excel_df = pd.read_excel(excel_path)
-    result=excel_df.to_json(orient='split')
-    context_dict = json.loads(result)
-    return render(request,'main.html', context_dict)
+    #chart1 data
+    excel_path = os.path.join(settings.BASE_DIR, 'excel_files', 'small.xlsx')
+    excel_df = pd.read_excel(excel_path, header=4, thousands=',')
+    excel_df = excel_df.drop(0)
+    excel_df = excel_df.drop([excel_df.columns[4], excel_df.columns[5], excel_df.columns[6]], axis=1)
+    excel_df = excel_df.sort_values(by='수출금액', ascending=False).head(3)
+    result = excel_df.to_json(orient='records')
+    dataset1 = json.loads(result)
+    #print('1====================================>')
+    #print(json.dumps(dataset1, indent=4, ensure_ascii=False))
+    
+    #chart2 data
+    excel_path = os.path.join(settings.BASE_DIR, 'excel_files', 'small2.xlsx')
+    excel_df = pd.read_excel(excel_path, header=4, thousands=',')
+    excel_df = excel_df.drop(0)
+    excel_df = excel_df.drop([excel_df.columns[4], excel_df.columns[5], excel_df.columns[6]], axis=1)
+    excel_df = excel_df.sort_values(by='수출금액', ascending=False).head(3)
+    result = excel_df.to_json(orient='records')
+    dataset2 = json.loads(result)
+    #print('2====================================>')
+    #print(json.dumps(dataset2, indent=4, ensure_ascii=False))
+    
+    #chart3 data
+    excel_path = os.path.join(settings.BASE_DIR, 'excel_files', 'small3.xlsx')
+    excel_df = pd.read_excel(excel_path, header=4, thousands=',')
+    excel_df = excel_df.drop(0)
+    excel_df = excel_df.drop([excel_df.columns[4], excel_df.columns[5], excel_df.columns[6]], axis=1)
+    excel_df = excel_df.sort_values(by='수출금액', ascending=False).head(3)
+    result = excel_df.to_json(orient='records')
+    dataset3 = json.loads(result)
+    #print('3====================================>')
+    #print(json.dumps(dataset3, indent=4, ensure_ascii=False))
+    
+    #chart4 data
+    excel_path = os.path.join(settings.BASE_DIR, 'excel_files', 'small4.xlsx')
+    excel_df = pd.read_excel(excel_path, header=4, thousands=',')
+    excel_df = excel_df.drop(0)
+    excel_df = excel_df.drop([excel_df.columns[4], excel_df.columns[5], excel_df.columns[6]], axis=1)
+    excel_df = excel_df.sort_values(by='수출금액', ascending=False).head(3)
+    result = excel_df.to_json(orient='records')
+    dataset4 = json.loads(result)
+    #print('4====================================>')
+    #print(json.dumps(dataset4, indent=4, ensure_ascii=False))
+    
+    return render(request,'main.html', {'dataset1':dataset1, 'dataset2':dataset2, 'dataset3':dataset3, 'dataset4':dataset4})
+  
    
 def main1(request):
     raw = requests.get("https://search.naver.com/search.naver?where=news&query=경제",headers={'User-Agent':'Mozilla/5.0'})
