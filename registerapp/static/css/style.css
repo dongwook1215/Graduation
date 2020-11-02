@@ -55,3 +55,34 @@ button{
 h3{
   font-weight: bold;
 }
+
+
+/* chart2 */
+.chart2_bt{
+  width: 50px;
+  height: 30px;
+  font-size: small;
+  font-weight: bold;
+  border: 1px solid gray;
+  background-color: rgba(0, 0, 0, 0);
+  color: gray;
+  padding: 5px;
+  border-radius: 5px;
+  margin:0px;
+}
+.chart2_bt:hover{
+  color: white;
+  background-color: gray;
+}
+.chart2_bt_selected{
+  width: 50px;
+  height: 30px;
+  font-size: small;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 5px;
+  margin:0px;
+  color: white;
+  background-color: gray;
+  border: 1px solid gray;
+}

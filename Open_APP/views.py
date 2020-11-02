@@ -24,11 +24,11 @@ def main(request):
     #print(json.dumps(dataset1, indent=4, ensure_ascii=False))
     
     #chart2 data
-    excel_path = os.path.join(settings.BASE_DIR, 'excel_files', 'small2.xlsx')
+    excel_path = os.path.join(settings.BASE_DIR, 'excel_files', 'country_trade.xls')
     excel_df = pd.read_excel(excel_path, header=4, thousands=',')
     excel_df = excel_df.drop(0)
     excel_df = excel_df.drop([excel_df.columns[4], excel_df.columns[5], excel_df.columns[6]], axis=1)
-    excel_df = excel_df.sort_values(by='수출금액', ascending=False).head(3)
+    excel_df = excel_df.sort_values(['기간', '수출금액'], ascending=[True, False]).groupby('기간').head(10)
     result = excel_df.to_json(orient='records')
     dataset2 = json.loads(result)
     #print('2====================================>')

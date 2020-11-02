@@ -11,6 +11,7 @@
   var data2 = {{ dataset2|safe }}
   var data3 = {{ dataset3|safe }}
   var data4 = {{ dataset4|safe }}
+  var chart2_year_value = 2015;
 </script>
 
 <div>
@@ -51,22 +52,17 @@
 
       <div class="row">
         <div class="chart1">
-          <h3>그래프를 선택하세요&nbsp;</h3><br>
-          <form id="sample_form" method="POST" action="{% url 'main' %}">
-            {% csrf_token %}
-            <select name="sel_chart">
-              <option value="수출입" selected>수출입 그래프</option>
-              <option value="품목별">품목별 그래프</option>
-            </select>
-            <input type="button" value="변경">
-          </form>
-          <br><br>
+          <h3><한국의 10대 무역국>&nbsp;</h3>
           <div class="card shadow">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">{{default_news}}그래프</h6>
-            </div>
+              <button class='chart2_bt, chart2_bt_selected' id='chart2_2015' onclick="chart2_bt_clicked(2015, 'chart2_2015')">2015</button>
+              <button class='chart2_bt' id='chart2_2016' onclick="chart2_bt_clicked(2016, 'chart2_2016')">2016</button>
+              <button class='chart2_bt' id='chart2_2017' onclick="chart2_bt_clicked(2017, 'chart2_2017')">2017</button>
+              <button class='chart2_bt' id='chart2_2018' onclick="chart2_bt_clicked(2018, 'chart2_2018')">2018</button>
+              <button class='chart2_bt' id='chart2_2019' onclick="chart2_bt_clicked(2019, 'chart2_2019')">2019</button>
+            </div><br>
             <div class="card-body">
-              <div class="chart-bar">
+              <div class="chart-bar" id="chart2_chartContainer">
                 <canvas id="chart2"></canvas>
               </div>
             </div>
