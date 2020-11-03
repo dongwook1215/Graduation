@@ -57,8 +57,8 @@ h3{
 }
 
 
-/* chart2 */
-.chart2_bt{
+/* chart2, 3 */
+.chart2_bt, .chart3_bt{
   width: 50px;
   height: 30px;
   font-size: small;
@@ -70,11 +70,11 @@ h3{
   border-radius: 5px;
   margin:0px;
 }
-.chart2_bt:hover{
+.chart2_bt:hover, .chart3_bt:hover{
   color: white;
   background-color: gray;
 }
-.chart2_bt_selected{
+.chart2_bt_selected, .chart3_bt_selected{
   width: 50px;
   height: 30px;
   font-size: small;

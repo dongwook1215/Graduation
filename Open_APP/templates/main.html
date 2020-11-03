@@ -12,6 +12,7 @@
   var data3 = {{ dataset3|safe }}
   var data4 = {{ dataset4|safe }}
   var chart2_year_value = 2015;
+  var chart3_country_value = 'usa';
 </script>
 
 <div>
@@ -24,6 +25,7 @@
           <button type="button" onClick="location.href=main1"><strong>해외 수출입 뉴스</strong></button></a>
       </div><br><br>
 
+<!-- chart1=> -->      
       <div class="row">
         <div class="chart1">
           <h3>그래프를 선택하세요&nbsp;</h3><br>
@@ -47,12 +49,12 @@
             </div>
           </div>
         </div>
-
       </div>
-
+    
+<!-- chart2=> -->
       <div class="row">
         <div class="chart1">
-          <h3><한국의 10대 무역국>&nbsp;</h3>
+          <h3><한국의 주요 수출국>&nbsp;</h3><br>
           <div class="card shadow">
             <div class="card-header py-3">
               <button class='chart2_bt, chart2_bt_selected' id='chart2_2015' onclick="chart2_bt_clicked(2015, 'chart2_2015')">2015</button>
@@ -60,6 +62,7 @@
               <button class='chart2_bt' id='chart2_2017' onclick="chart2_bt_clicked(2017, 'chart2_2017')">2017</button>
               <button class='chart2_bt' id='chart2_2018' onclick="chart2_bt_clicked(2018, 'chart2_2018')">2018</button>
               <button class='chart2_bt' id='chart2_2019' onclick="chart2_bt_clicked(2019, 'chart2_2019')">2019</button>
+              <h6 class="m-0 font-weight-bold text-primary">수출금액 기준 (단위: 천 불(USD 1,000))</h6>
             </div><br>
             <div class="card-body">
               <div class="chart-bar" id="chart2_chartContainer">
@@ -69,23 +72,19 @@
           </div>
         </div>
 
+<!-- chart3=> -->
         <div class="chart2">
-          <h3>그래프를 선택하세요&nbsp;</h3><br>
-          <form id="sample_form" method="POST" action="{% url 'main' %}">
-            {% csrf_token %}
-            <select name="sel_chart">
-              <option value="수출입" selected>수출입 그래프</option>
-              <option value="품목별">품목별 그래프</option>
-            </select>
-            <input type="button" value="변경">
-          </form>
-          <br><br>
+          <h3><주요 국가별 한국의 비중>&nbsp;</h3><br>
           <div class="card shadow">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">{{default_news}}그래프</h6>
+              <button class='chart3_bt, chart3_bt_selected' id='chart3_usa' onclick="chart3_bt_clicked('usa', 'chart3_usa')">미국</button>
+              <button class='chart3_bt' id='chart3_china' onclick="chart3_bt_clicked('china', 'chart3_china')">중국</button>
+              <button class='chart3_bt' id='chart3_japan' onclick="chart3_bt_clicked('japan', 'chart3_japan')">일본</button>
+              <button class='chart3_bt' id='chart3_eu' onclick="chart3_bt_clicked('eu', 'chart3_eu')">EU</button>
+              <h6 class="m-0 font-weight-bold text-primary">(단위: 천 불(USD 1,000))</h6>
             </div>
             <div class="card-body">
-              <div class="chart-bar">
+              <div class="chart-bar" id="chart3_chartContainer">
                 <canvas id="chart3"></canvas>
               </div>
             </div>
@@ -93,6 +92,7 @@
         </div>
       </div>
 
+<!-- chart4=> -->     
       <div class="row">
         <div class="chart1">
           <h3>그래프를 선택하세요&nbsp;</h3><br>
