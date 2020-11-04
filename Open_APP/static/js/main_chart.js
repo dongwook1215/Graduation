@@ -142,34 +142,115 @@ function chart2_bt_clicked(chart2_bt_year, chart2_bt_id){
 
 //chart3=>
 function chart3_createChart(){
+	if(chart3_country_value == '미국') var data3 = data3_usa;
+	else if(chart3_country_value == '중국') var data3 = data3_china;
+	else if(chart3_country_value == '일본') var data3 = data3_japan;
+	else var data3 = data3_eu;
+
 	var chart3_year_values = [];
-	var chart3_country_values = [];
-	var chart3_num_of_export_values = [];
-	var chart3_amount_of_export_values = [];
-	
+	var chart3_total_amount_of_trade_values = [];
+	var chart3_korea_amount_of_trade_values = [];
+	var chart3_trade_weight = [];
+	var chart3_total_amount_of_import_values = [];
+	var chart3_korea_amount_of_import_values = [];
+	var chart3_import_weight = [];
+	var chart3_total_amount_of_export_values = [];
+	var chart3_korea_amount_of_export_values = [];
+	var chart3_export_weight = [];
+
 	for(var i=0; i<data3.length; i++) {
-		chart3_year_values.push(parseInt(data3[i]['기간']))
-		chart3_country_values.push(data3[i]['국가명'])
-		chart3_num_of_export_values.push(parseInt(data3[i]['수출건수']))
-		chart3_amount_of_export_values.push(parseInt(data3[i]['수출금액']))
+		chart3_year_values.push(data3[i]['연도'])
+		chart3_total_amount_of_trade_values.push(parseInt(data3[i]['총무역금액']))
+		chart3_korea_amount_of_trade_values.push(parseInt(data3[i]['한국무역금액']))
+		chart3_trade_weight.push(parseFloat(data3[i]['무역비중']))
+		chart3_total_amount_of_import_values.push(parseInt(data3[i]['총수입금액']))
+		chart3_korea_amount_of_import_values.push(parseInt(data3[i]['한국수입금액']))
+		chart3_import_weight.push(parseFloat(data3[i]['수입비중']))
+		chart3_total_amount_of_export_values.push(parseInt(data3[i]['총수출금액']))
+		chart3_korea_amount_of_export_values.push(parseInt(data3[i]['한국수출금액']))
+		chart3_export_weight.push(parseFloat(data3[i]['수출비중']))
 	}
-	
+
 	var chart3_config = {
 		type: 'bar',
 		data: {
-			labels: chart3_country_values,
+			labels: chart3_year_values,
 			datasets: [{
-				label: '수출건수',
-				borderColor: "rgb(54, 162, 235)",
-				 backgroundColor: "rgba(54, 162, 235, 0.5)",
-				data: chart3_num_of_export_values,
+				type: 'bar',
+				label: '총무역금액',
+				borderColor: "rgb(100, 207, 132)",
+				backgroundColor: "rgba(100, 207, 132, 0.5)",
+				yAxisID: 'A',
+				data: chart3_total_amount_of_trade_values,
 				fill: false,
 				borderWidth: 2
 			}, {
-				label: '수출금액',
+				type: 'bar',
+				label: '한국무역금액',
+				borderColor: "rgb(11, 206, 70)",
+				backgroundColor: "rgba(11, 206, 70, 0.5)",
+				yAxisID: 'A',
+				data: chart3_korea_amount_of_trade_values,
+				fill: false,
+				borderWidth: 2
+			}, {
+				type: 'bar',
+				label: '총수입금액',
+				borderColor: "rgb(54, 162, 235)",
+				backgroundColor: "rgba(54, 162, 235, 0.5)",
+				yAxisID: 'A',
+				data: chart3_total_amount_of_import_values,
+				fill: false,
+				borderWidth: 2
+			}, {
+				type: 'bar',
+				label: '한국수입금액',
+				borderColor: "rgb(4, 48, 241)",
+				backgroundColor: "rgba(4, 48, 241, 0.5)",
+				yAxisID: 'A',
+				data: chart3_korea_amount_of_import_values,
+				fill: false,
+				borderWidth: 2
+			}, {
+				type: 'bar',
+				label: '총수출금액',
 				borderColor: "rgb(255, 99, 132)",
 				backgroundColor: "rgba(255, 99, 132, 0.5)",
-				data: chart3_amount_of_export_values,
+				yAxisID: 'A',
+				data: chart3_total_amount_of_export_values,
+				fill: false,
+				borderWidth: 2
+			}, {
+				type: 'bar',
+				label: '한국수출금액',
+				borderColor: "rgb(248, 23, 71)",
+				backgroundColor: "rgba(248, 23, 71, 0.5)",
+				yAxisID: 'A',
+				data: chart3_korea_amount_of_export_values,
+				fill: false,
+				borderWidth: 2
+			}, {
+				type: 'line',
+				label: '무역비중',
+				borderColor: "mediumseagreen",
+				yAxisID: 'B',
+				data: chart3_trade_weight,
+				fill: false,
+				borderWidth: 2
+			}, {
+				type: 'line',
+				label: '수입비중',
+				borderColor: "mediumslateblue",
+				yAxisID: 'B',
+				data: chart3_import_weight,
+				fill: false,
+				borderWidth: 2
+			}, {
+				type: 'line',
+				label: '수출비중',
+				borderColor: "indianred",
+				yAxisID: 'B',
+				data: chart3_export_weight,
 				fill: false,
 				borderWidth: 2
 			}]
@@ -178,11 +259,27 @@ function chart3_createChart(){
 				responsive: true,
 				title: {
 					display: true,
-					text: 'Chart No.3'
+					text: '[ '+chart3_country_value+' ]'
+				},
+				legend: {
+					position: 'bottom'
 				},
 				tooltips: {
 					mode: 'index',
 					intersect: false,
+					callbacks: {
+						label: function(tooltipItem, data) {
+							let value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+							if(value > 100){
+								value = value.toString();
+								value = value.split(/(?=(?:...)*$)/);
+								value = value.join(',');
+							}
+							else value = tooltipItem.yLabel+'%';
+							value = data.datasets[tooltipItem.datasetIndex].label+': '+value;
+							return value;
+						}
+					}
 				},
 				hover: {
 					mode: 'nearest',
@@ -193,32 +290,62 @@ function chart3_createChart(){
 						display: true,
 						scaleLabel: {
 							display: true,
-							labelString: 'x'
-						}
+							//labelString: 'x'
+						},
 					}],
 					yAxes: [{
+						id: 'A',
+						type: 'linear',
+						position: 'left',
 						display: true,
 						scaleLabel: {
 							display: true,
-							labelString: 'y'
+							// labelString: 'y'
+						},
+						ticks: {
+							beginAtZero: true,
+							userCallback: function(value, index, values) {
+								value = value.toString();
+								value = value.split(/(?=(?:...)*$)/);
+								value = value.join(',');
+								return value;
+							}
+						}
+					},{
+						id: 'B',
+						type: 'linear',
+						position: 'right',
+						display: true,
+						scaleLabel: {
+							display: true,
+							// labelString: 'y'
+						},
+						ticks: {
+							//max: 11,
+							min: 0
 						}
 					}]
 				}
-			 }
+			}
 		}
-		return chart3_config;
-	}
-	
-	function chart3_bt_clicked(chart3_bt_country, chart3_bt_id){
-		document.getElementsByClassName("chart3_bt, chart3_bt_selected").item(0).className="chart3_bt";
-		document.getElementById(chart3_bt_id).className = "chart3_bt, chart3_bt_selected";
-	
-		chart3_country_value=chart3_bt_country;
-		document.getElementById("chart3_chartContainer").innerHTML = '&nbsp;';
-		document.getElementById("chart3_chartContainer").innerHTML = '<canvas id="chart3"></canvas>';
-		chart_canvas3 = document.getElementById("chart3").getContext("2d");
-		chart3 = new Chart(chart_canvas3, chart3_createChart());
-	}
+	return chart3_config;
+}
+
+function chart3_bt_clicked(chart3_bt_country, chart3_bt_id){
+    document.getElementsByClassName("chart3_bt, chart3_bt_selected").item(0).className="chart3_bt";
+    document.getElementById(chart3_bt_id).className = "chart3_bt, chart3_bt_selected";
+
+	chart3_country_value=chart3_bt_country;
+	document.getElementById("chart3_Text").innerHTML = '&nbsp;';
+	if(chart3_country_value == 'EU') document.getElementById("chart3_Text").innerHTML = '금액 단위: 백만€';
+	else if (chart3_country_value == '일본') document.getElementById("chart3_Text").innerHTML = '금액 단위: 백만￥';
+	else document.getElementById("chart3_Text").innerHTML = '금액 단위: 백만불';
+
+    document.getElementById("chart3_chartContainer").innerHTML = '&nbsp;';
+    document.getElementById("chart3_chartContainer").innerHTML = '<canvas id="chart3"></canvas>';
+    chart_canvas3 = document.getElementById("chart3").getContext("2d");
+    chart3 = new Chart(chart_canvas3, chart3_createChart());
+}
 //<=chart3
 
 

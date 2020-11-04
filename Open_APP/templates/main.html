@@ -9,10 +9,13 @@
 <script>
   var data1 = {{ dataset1|safe }}
   var data2 = {{ dataset2|safe }}
-  var data3 = {{ dataset3|safe }}
+  var data3_usa = {{ dataset3_usa|safe }}
+  var data3_china = {{ dataset3_china|safe }}
+  var data3_japan = {{ dataset3_japan|safe }}
+  var data3_eu = {{ dataset3_eu|safe }}
   var data4 = {{ dataset4|safe }}
   var chart2_year_value = 2015;
-  var chart3_country_value = 'usa';
+  var chart3_country_value = '미국';
 </script>
 
 <div>
@@ -77,11 +80,11 @@
           <h3><주요 국가별 한국의 비중>&nbsp;</h3><br>
           <div class="card shadow">
             <div class="card-header py-3">
-              <button class='chart3_bt, chart3_bt_selected' id='chart3_usa' onclick="chart3_bt_clicked('usa', 'chart3_usa')">미국</button>
-              <button class='chart3_bt' id='chart3_china' onclick="chart3_bt_clicked('china', 'chart3_china')">중국</button>
-              <button class='chart3_bt' id='chart3_japan' onclick="chart3_bt_clicked('japan', 'chart3_japan')">일본</button>
-              <button class='chart3_bt' id='chart3_eu' onclick="chart3_bt_clicked('eu', 'chart3_eu')">EU</button>
-              <h6 class="m-0 font-weight-bold text-primary">(단위: 천 불(USD 1,000))</h6>
+              <button class='chart3_bt, chart3_bt_selected' id='chart3_usa' onclick="chart3_bt_clicked('미국', 'chart3_usa')">미국</button>
+              <button class='chart3_bt' id='chart3_china' onclick="chart3_bt_clicked('중국', 'chart3_china')">중국</button>
+              <button class='chart3_bt' id='chart3_japan' onclick="chart3_bt_clicked('일본', 'chart3_japan')">일본</button>
+              <button class='chart3_bt' id='chart3_eu' onclick="chart3_bt_clicked('EU', 'chart3_eu')">EU</button>
+              <h6 class="m-0 font-weight-bold text-primary" id="chart3_Text">금액 단위: 백만불</h6>
             </div>
             <div class="card-body">
               <div class="chart-bar" id="chart3_chartContainer">
