@@ -14,11 +14,11 @@ import json
 
 def main(request, year='2015'):
     #chart1 data
-    excel_path = os.path.join(settings.BASE_DIR, 'excel_files', 'small.xlsx')
+    excel_path = os.path.join(settings.BASE_DIR, 'excel_files', 'by-item_202010305.xls')
     excel_df = pd.read_excel(excel_path, header=4, thousands=',')
     excel_df = excel_df.drop(0)
-    excel_df = excel_df.drop([excel_df.columns[4], excel_df.columns[5], excel_df.columns[6]], axis=1)
-    excel_df = excel_df.sort_values(by='수출금액', ascending=False).head(3)
+    excel_df = excel_df.drop([excel_df.columns[3], excel_df.columns[4]], axis=1)
+    excel_df = excel_df.sort_values(['기간', '수출금액'], ascending=[True, False]).groupby('기간').head(10)
     result = excel_df.to_json(orient='records')
     dataset1 = json.loads(result)
     #print('1====================================>')

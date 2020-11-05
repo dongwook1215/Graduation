@@ -27,6 +27,7 @@
   var data3_japan = {{ dataset3_japan| safe }}
   var data3_eu = {{ dataset3_eu| safe }}
   var data4 = {{ dataset4| safe }}
+  var chart1_export = '수출금액';
   var chart2_year_value = 2015;
   var chart3_country_value = '미국';
 </script>
@@ -44,22 +45,16 @@
       <!-- chart1=> -->
       <div class="row">
         <div class="chart1">
-          <h3>그래프를 선택하세요&nbsp;</h3><br>
-          <form id="sample_form" method="POST" action="{% url 'main' %}">
-            {% csrf_token %}
-            <select name="sel_chart">
-              <option value="수출입" selected>수출입 그래프</option>
-              <option value="품목별">품목별 그래프</option>
-            </select>
-            <input type="button" value="변경">
-          </form>
-          <br><br>
+          <h3><품목별 수출입 실적>&nbsp;</h3><br>
           <div class="card shadow">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">{{default_news}}그래프</h6>
-            </div>
+              <button class='chart1_bt, chart1_bt_selected' id='chart1_export' onclick="chart1_bt_clicked('수출금액', 'chart1_export')">수출금액</button>
+              <button class='chart1_bt' id='chart1_import' onclick="chart1_bt_clicked('수입금액', 'chart1_import')">수입금액</button>
+              <button class='chart1_bt' id='chart1_trade_balance' onclick="chart1_bt_clicked('무역수지', 'chart1_trade_balance')">무역수지</button>
+              <h6 class="m-0 font-weight-bold text-primary">수출금액 기준 (단위: 천 불(USD 1,000))</h6>
+            </div><br>
             <div class="card-body">
-              <div class="chart-bar">
+              <div class="chart-bar" id="chart1_chartContainer">
                 <canvas id="chart1"></canvas>
               </div>
             </div>
