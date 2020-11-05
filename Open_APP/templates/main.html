@@ -1,19 +1,32 @@
 {% extends "base.html" %}
 {% block contents %}
 {% load static %}
+<style>
+  .table-bordered,
+  .table-striped,
+  .table-hover {
+    width: 50%px;
+  }
 
+  .table-bordered th,
+  .table-striped th,
+  .table-hover th {
+    width: 170px;
+    text-align: center;
+  }
+</style>
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 
 <script>
-  var data1 = {{ dataset1|safe }}
-  var data2 = {{ dataset2|safe }}
-  var data3_usa = {{ dataset3_usa|safe }}
-  var data3_china = {{ dataset3_china|safe }}
-  var data3_japan = {{ dataset3_japan|safe }}
-  var data3_eu = {{ dataset3_eu|safe }}
-  var data4 = {{ dataset4|safe }}
+  var data1 = {{ dataset1| safe }}
+  var data2 = {{ dataset2| safe }}
+  var data3_usa = {{ dataset3_usa| safe }}
+  var data3_china = {{ dataset3_china| safe }}
+  var data3_japan = {{ dataset3_japan| safe }}
+  var data3_eu = {{ dataset3_eu| safe }}
+  var data4 = {{ dataset4| safe }}
   var chart2_year_value = 2015;
   var chart3_country_value = '미국';
 </script>
@@ -28,7 +41,7 @@
           <button type="button" onClick="location.href=main1"><strong>해외 수출입 뉴스</strong></button></a>
       </div><br><br>
 
-<!-- chart1=> -->      
+      <!-- chart1=> -->
       <div class="row">
         <div class="chart1">
           <h3>그래프를 선택하세요&nbsp;</h3><br>
@@ -53,14 +66,17 @@
           </div>
         </div>
       </div>
-    
-<!-- chart2=> -->
+
+      <!-- chart2=> -->
       <div class="row">
         <div class="chart1">
-          <h3><한국의 주요 수출국>&nbsp;</h3><br>
+          <h3>
+            <한국의 주요 수출국>&nbsp;
+          </h3><br>
           <div class="card shadow">
             <div class="card-header py-3">
-              <button class='chart2_bt, chart2_bt_selected' id='chart2_2015' onclick="chart2_bt_clicked(2015, 'chart2_2015')">2015</button>
+              <button class='chart2_bt, chart2_bt_selected' id='chart2_2015'
+                onclick="chart2_bt_clicked(2015, 'chart2_2015')">2015</button>
               <button class='chart2_bt' id='chart2_2016' onclick="chart2_bt_clicked(2016, 'chart2_2016')">2016</button>
               <button class='chart2_bt' id='chart2_2017' onclick="chart2_bt_clicked(2017, 'chart2_2017')">2017</button>
               <button class='chart2_bt' id='chart2_2018' onclick="chart2_bt_clicked(2018, 'chart2_2018')">2018</button>
@@ -75,12 +91,15 @@
           </div>
         </div>
 
-<!-- chart3=> -->
+        <!-- chart3=> -->
         <div class="chart2">
-          <h3><주요 국가별 한국의 비중>&nbsp;</h3><br>
+          <h3>
+            <주요 국가별 한국의 비중>&nbsp;
+          </h3><br>
           <div class="card shadow">
             <div class="card-header py-3">
-              <button class='chart3_bt, chart3_bt_selected' id='chart3_usa' onclick="chart3_bt_clicked('미국', 'chart3_usa')">미국</button>
+              <button class='chart3_bt, chart3_bt_selected' id='chart3_usa'
+                onclick="chart3_bt_clicked('미국', 'chart3_usa')">미국</button>
               <button class='chart3_bt' id='chart3_china' onclick="chart3_bt_clicked('중국', 'chart3_china')">중국</button>
               <button class='chart3_bt' id='chart3_japan' onclick="chart3_bt_clicked('일본', 'chart3_japan')">일본</button>
               <button class='chart3_bt' id='chart3_eu' onclick="chart3_bt_clicked('EU', 'chart3_eu')">EU</button>
@@ -95,7 +114,7 @@
         </div>
       </div>
 
-<!-- chart4=> -->     
+      <!-- chart4=>    
       <div class="row">
         <div class="chart1">
           <h3>그래프를 선택하세요&nbsp;</h3><br>
@@ -123,16 +142,44 @@
 
     </div>
   </div>
-</div>
+</div> -->
+      <h3>
+        <성질별 국가별 수출입 통계>&nbsp;
+      </h3><br>
 
-<script type="text/javascript" src="../static/js/main_chart.js"></script>
+      <!--select box-->
+      <form method="POST">
+        {% csrf_token %}
+        <select name="year">
+          {% for i in year %}
+          <option value='{{i}}'>{{i}}</option>
+          {% endfor%}
+          <option value='{{i}}'>{{i}}</option>
+        </select>
+        <button type="submit" class="btn btn-primary btn-sm">선택</button>
+      </form>
+      <div class="container-fluid" style=" float: left; width:50%">
+        <h4 style="text-align: center;">수입 통계</h4>
+        {{ dataset41|safe }}
+        <br><br>
+      </div>
 
-<footer class="sticky-footer bg-white">
-  <div class="container my-auto">
-    <div class="copyright text-center my-auto">
-      <span>Copyright &copy; Your Website 2020</span>
+      <div class="container-fluid" style=" float: right; width:50%">
+        <h4 style="text-align: center;">수출 통계</h4>
+        {{ dataset42|safe }}
+        <br><br>
+      </div>
+
+
+
+      <script type="text/javascript" src="../static/js/main_chart.js"></script>
+
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Your Website 2020</span>
+          </div>
+        </div>
+      </footer>
     </div>
-  </div>
-</footer>
-</div>
-{% endblock contents %}
+    {% endblock contents %}

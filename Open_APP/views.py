@@ -11,7 +11,8 @@ import os
 import pandas as pd
 import json
 
-def main(request):
+
+def main(request, year='2015'):
     #chart1 data
     excel_path = os.path.join(settings.BASE_DIR, 'excel_files', 'small.xlsx')
     excel_df = pd.read_excel(excel_path, header=4, thousands=',')
@@ -127,17 +128,48 @@ def main(request):
     #print(json.dumps(dataset3, indent=4, ensure_ascii=False))
     
     #chart4 data
+    #chart4 data
+    if request.method == "POST":
+        year = request.POST['year']
     excel_path = os.path.join(settings.BASE_DIR, 'excel_files', 'small4.xlsx')
     excel_df = pd.read_excel(excel_path, header=4, thousands=',')
     excel_df = excel_df.drop(0)
-    excel_df = excel_df.drop([excel_df.columns[4], excel_df.columns[5], excel_df.columns[6]], axis=1)
+    excel_df = excel_df.drop(
+        [excel_df.columns[4], excel_df.columns[5], excel_df.columns[6]], axis=1)
     excel_df = excel_df.sort_values(by='수출금액', ascending=False).head(3)
     result = excel_df.to_json(orient='records')
+
     dataset4 = json.loads(result)
+    im_path = os.path.join(settings.BASE_DIR, 'excel_files', '성질별수입.xls')
+    im_df = pd.read_excel(im_path, header=4, thousands=',')
+    im_df.drop(0)
+    data = im_df.sort_values(['기간', '국가명', '금액', '성질명'], ascending=[
+                             True, True, False, False]).groupby(['기간', '국가명']).head(1)
+    data['성질명'] = data['성질명'].str.split('.').str[-1]
+    data = data.rename(columns={'금액': '금액(USD 1000$)', '중량': '중량(ton)'})
+
+    ex_path = os.path.join(settings.BASE_DIR, 'excel_files', '성질별수출.xls')
+    ex_df = pd.read_excel(ex_path, header=4, thousands=',')
+    ex_df.drop(0)
+    data2 = ex_df.sort_values(['기간', '국가명', '금액', '성질명'], ascending=[
+        True, True, False, False]).groupby(['기간', '국가명']).head(1)
+    data2['성질명'] = data2['성질명'].str.split('.').str[-1]
+    data2 = data2.rename(columns={'금액': '금액(USD 1000$)', '중량': '중량(ton)'})
+
+    years = data['기간'].unique()
+    data = data[data['기간'] == year].drop(['기간', '수출입구분'], axis=1)
+    years = data2['기간'].unique()
+    data2 = data2[data2['기간'] == year].drop(['기간', '수출입구분'], axis=1)
+
+    dataset41 = data.to_html(index=False, justify='center', classes=[
+        "table-bordered", "table-striped", "table-hover"])
+    dataset42 = data2.to_html(index=False, justify='center', classes=[
+                              "table-bordered", "table-striped", "table-hover"])
+
     #print('4====================================>')
     #print(json.dumps(dataset4, indent=4, ensure_ascii=False))
-    
-    return render(request,'main.html', {'dataset1':dataset1, 'dataset2':dataset2, 'dataset3_usa':dataset3_usa, 'dataset3_china':dataset3_china, 'dataset3_japan':dataset3_japan, 'dataset3_eu':dataset3_eu, 'dataset4':dataset4})
+
+    return render(request, 'main.html', {'dataset1': dataset1, 'dataset2': dataset2, 'dataset3_usa': dataset3_usa, 'dataset3_china': dataset3_china, 'dataset3_japan': dataset3_japan, 'dataset3_eu': dataset3_eu, 'dataset4': dataset4, 'dataset41': dataset41, 'dataset42': dataset42, 'year': years})
    
    
 def main1(request):
