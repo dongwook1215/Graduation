@@ -56,6 +56,35 @@ h3{
   font-weight: bold;
 }
 
+/* chart1 */
+.chart1_bt{
+  width: 70px;
+  height: 27px;
+  font-size: small;
+  font-weight: bold;
+  border: 1px solid gray;
+  background-color: rgba(0, 0, 0, 0);
+  color: gray;
+  padding: 5px;
+  border-radius: 5px;
+  margin:0px;
+}
+.chart1_bt:hover{
+  color: white;
+  background-color: gray;
+}
+.chart1_bt_selected{
+  width: 70px;
+  height: 27px;
+  font-size: small;
+  font-weight: bold;
+  padding: 5px;
+  border-radius: 5px;
+  margin:0px;
+  color: white;
+  background-color: gray;
+  border: 1px solid gray;
+}
 
 /* chart2, 3 */
 .chart2_bt, .chart3_bt{

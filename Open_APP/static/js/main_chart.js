@@ -1,69 +1,71 @@
 //chart1=>
-var chart1_year_values = [];
-var chart1_country_values = [];
-var chart1_num_of_export_values = [];
-var chart1_amount_of_export_values = [];
-
-for(var i=0; i<data1.length; i++) {
-	chart1_year_values.push(parseInt(data1[i]['기간']))
-	chart1_country_values.push(data1[i]['국가명'])
-	chart1_num_of_export_values.push(parseInt(data1[i]['수출건수']))
-	chart1_amount_of_export_values.push(parseInt(data1[i]['수출금액']))
-}
-
-var chart1_config = {
-	type: 'bar',
-	data: {
-		labels: chart1_country_values,
-		datasets: [{
-			label: '수출건수',
-			borderColor: "rgb(54, 162, 235)",
- 			backgroundColor: "rgba(54, 162, 235, 0.5)",
-			data: chart1_num_of_export_values,
-			fill: false,
-			borderWidth: 2
-		}, {
-			label: '수출금액',
-			borderColor: "rgb(255, 99, 132)",
-			backgroundColor: "rgba(255, 99, 132, 0.5)",
-			data: chart1_amount_of_export_values,
-			fill: false,
-			borderWidth: 2
-		}]
-	},
-		options: {
-			responsive: true,
-			title: {
-				display: true,
-				text: 'Chart No.1'
-			},
-			tooltips: {
-				mode: 'index',
-				intersect: false,
-			},
-			hover: {
-				mode: 'nearest',
-				intersect: true
-			},
-			scales: {
-				xAxes: [{
-					display: true,
-					scaleLabel: {
-						display: true,
-						labelString: 'x'
-					}
-				}],
-				yAxes: [{
-					display: true,
-					scaleLabel: {
-						display: true,
-						labelString: 'y'
-					}
-				}]
-			}
-	 	}
+function chart1_createChart(){
+	var chart1_year_values = [];
+	var chart1_byitem_names = [];
+	var chart1_amount_of_export_values = [];
+	var chart1_amount_of_import_values = [];
+	chart1_amount_of_trade_balance = [];
+ 
+	for(var i=0; i<data1.length; i++) {
+	   chart1_byitem_names.push(data1[i]['품목코드'])
+	   chart1_amount_of_export_values.push(parseInt(data1[i]['수출금액']))
+	   chart1_amount_of_import_values.push(parseInt(data1[i]['수입금액']))
+	   chart1_amount_of_trade_balance.push(parseInt(data1[i]['무역수지']))
 	}
-//<=chart1
+ 
+	var chart1_config = {
+	   type: 'pie',
+	   data: {
+		  labels: chart1_byitem_names,
+		  datasets: [{
+			backgroundColor: ['rgb(255, 99, 99)', 'rgb(255, 161, 99)', 'rgb(255, 245, 99)', 'rgb(182, 255, 99)','rgb(99, 255, 125)','rgb(99, 245, 255)','rgb(115, 99, 255)','rgb(180, 99, 255)', 'rgb(255, 99, 190)','rgb(145, 83, 55)'],
+			borderWidth: 2,
+			data: chart1_amount_of_export_values
+		  }]
+	   },
+	   options: {
+		  cutoutPercentage: 30,
+		  legend: {
+			position:'bottom',
+			padding:5, 
+			labels: {
+			  pointStyle:'circle',
+			  usePointStyle:true
+			}
+		  }, 
+		  responsive: true,
+		  title: {
+			display: true,
+			text: '왜 안돼'
+		  },
+		  tooltips: {
+			callbacks: {
+			  label: function(tooltipItem, data) {
+				let value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+				value = value.toString();
+				value = value.split(/(?=(?:...)*$)/);
+				value = value.join(',');
+				value = data.labels[tooltipItem.index]+': '+value;
+				return value;
+			  }
+			},
+		  },
+		}
+	}
+  return chart1_config;
+ }
+ 
+ function chart1_bt_clicked(chart1_bt_year, chart1_bt_id){
+	document.getElementsByClassName("chart1_bt, chart1_bt_selected").item(0).className="chart1_bt";
+	document.getElementById(chart1_bt_id).className = "chart1_bt, chart1_bt_selected";
+	
+	chart1_export=chart1_bt_year;
+	document.getElementById("chart1_chartContainer").innerHTML = '&nbsp;';
+	document.getElementById("chart1_chartContainer").innerHTML = '<canvas id="chart1"></canvas>';
+	chart_canvas1 = document.getElementById("chart1").getContext("2d");
+	chart1 = new Chart(chart_canvas1, chart1_createChart());
+ }
+  //<=chart1
 
 //chart2=>
 function chart2_createChart(){
@@ -420,7 +422,7 @@ var chart4_config = {
 
 window.onload = function() {
 	var chart_canvas1 = document.getElementById("chart1").getContext("2d");
-    var chart = new Chart(chart_canvas1, chart1_config);
+    var chart = new Chart(chart_canvas1, chart1_createChart());
 
     var chart_canvas2 = document.getElementById("chart2").getContext("2d");
 	var chart2 = new Chart(chart_canvas2, chart2_createChart());
