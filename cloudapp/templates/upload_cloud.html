@@ -16,13 +16,22 @@
         <div class='container'>
         <h4>Predict Files</h4><hr>
             <label>file upload</label>
-            <input type="file" id="file_input" />  
+			<form action="{% url 'dataTransmit' %}" enctype="multipart/form-data" method="post">
+				{% csrf_token %}
+				<input type="file" name="input_file" class="pull-left">
+				<input type="submit" value="예측" class="btn btn-primary pull-right">
+			</form>
             <div class="card-body">
-                <div class="chart-bar">
-                    <canvas id="차트입니다"></canvas>
-                    <script type="text/javascript" src="../static/js/chart_functions.js"></script>
-                    <script type="text/javascript" src="../static/js/chart.js"></script>
-                    <script type="text/javascript" src="https://unpkg.com/xlsx@0.16.8/dist/xlsx.full.min.js"></script>
+                <div class="chart_bar">
+                    <canvas id="predicted_chart"></canvas>
+					<script>
+						// 아래 처럼 "|safe"를 붙여야 string이 제대로 표현됨
+						let json_data = {{ json_data|safe }};
+
+						let predicted_data = {{ predicted_data }};
+					</script>
+					<script type="text/javascript" src="{% static '/js/chart.js' %}"></script>
+					<script type="text/javascript" src="{% static '/js/chart_prediction.js' %}"></script>
                 </div>
             </div>
         </div>

@@ -31,7 +31,7 @@ urlpatterns = [
     path('Open_APP/',include('Open_APP.urls')),
     path('upload_cloud/',cloudapp.views.upload_cloud,name="upload_cloud"),
     path('upload_cloud/<int:idx>/delete',cloudapp.views.delete,name='delete'),
-    
+    path('dataTransmit', cloudapp.views.dataTransmit, name='dataTransmit')
 ]
 urlpatterns += \
 static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
