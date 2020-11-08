@@ -173,56 +173,47 @@ def main(request, year='2015'):
    
    
 def main1(request):
-    raw = requests.get("https://search.naver.com/search.naver?where=news&query=경제",headers={'User-Agent':'Mozilla/5.0'})
+    headers={'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36 RuxitSynthetic/1.0 v7129538413 t38550 ath9b965f92 altpub cvcv=2'}
+    url='https://search.daum.net/search?w=tot&DA=23A&rtmaxcoll=NNS&q=%EA%B2%BD%EC%A0%9C'
+    raw=requests.get(url,headers=headers)
     html = BeautifulSoup(raw.text, "html.parser")
-    articles = html.select("ul.type01 > li")
+    r_news_link=html.select('.coll_cont ul li a.f_link_b')
     time = datetime.datetime.today().strftime("%Y/%m/%d %H:%M:%S")
-    
     newslist=[]
     print("갱신시각:", time)
-    raw1 = requests.get("https://search.naver.com/search.naver?where=news&query=통상",headers={'User-Agent':'Mozilla/5.0'})
+    url1='https://search.daum.net/search?nil_suggest=btn&w=tot&DA=SBC&q=%ED%86%B5%EC%83%81'
+    raw1 = requests.get(url1,headers=headers)
     html1 = BeautifulSoup(raw1.text, "html.parser")
-    articles1 = html1.select("ul.type01 > li")
+    r_news_link1=html1.select('.coll_cont ul li a.f_link_b')
     time = datetime.datetime.today().strftime("%Y/%m/%d %H:%M:%S")
-    
     newslist1=[]
     print("갱신시각:", time)
-    raw2 = requests.get("https://search.naver.com/search.naver?where=news&query=투자",headers={'User-Agent':'Mozilla/5.0'})
-    html2 = BeautifulSoup(raw1.text, "html.parser")
-    articles2 = html1.select("ul.type01 > li")
+    url2='https://search.daum.net/search?nil_suggest=btn&w=tot&DA=SBC&q=%ED%88%AC%EC%9E%90'
+    raw2 = requests.get(url2,headers=headers)
+    html2 = BeautifulSoup(raw2.text, "html.parser")
+    r_news_link2=html2.select('.coll_cont ul li a.f_link_b')
     time = datetime.datetime.today().strftime("%Y/%m/%d %H:%M:%S")
-    
     newslist2=[]
     print("갱신시각:", time)
 
-    for ar in articles:
-        title = ar.select_one("a._sp_each_title").text  #title
-        source = ar.select_one("span._sp_each_source").text #요약
-        link = ar.select_one("a").attrs['href'] #하이퍼링크 
-        update = ar.select_one("dd.txt_inline").text.split(" ")
-        dic ={'title':title,'source':source,'link':link,'update':update}
+    for link in r_news_link:
+        title=link.text
+        hyperlink=link.get('href')
+        dic ={'title':title,'hyperlink':hyperlink}
         newslist.append(dic)
-        
         print(dic)
-    for ar in articles1:
-        title = ar.select_one("a._sp_each_title").text  #title
-        source = ar.select_one("span._sp_each_source").text #요약
-        link = ar.select_one("a").attrs['href'] #하이퍼링크 
-        update = ar.select_one("dd.txt_inline").text.split(" ")
-        dic ={'title':title,'source':source,'link':link,'update':update}
+    for link in r_news_link1:
+        title=link.text
+        hyperlink=link.get('href')
+        dic ={'title':title,'hyperlink':hyperlink}
         newslist1.append(dic)
-        
         print(dic)
-    for ar in articles2:
-        title = ar.select_one("a._sp_each_title").text  #title
-        source = ar.select_one("span._sp_each_source").text #요약
-        link = ar.select_one("a").attrs['href'] #하이퍼링크 
-        update = ar.select_one("dd.txt_inline").text.split(" ")
-        dic ={'title':title,'source':source,'link':link,'update':update}
+    for link in r_news_link2:
+        title=link.text
+        hyperlink=link.get('href')
+        dic ={'title':title,'hyperlink':hyperlink}
         newslist2.append(dic)
-        
         print(dic)
     return render(request,'main1.html',{'newslist':newslist,'time':time,'newslist1':newslist1,'newslist2':newslist2})
-    
 
 
