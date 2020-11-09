@@ -1,71 +1,84 @@
 //chart1=>
 function chart1_createChart(){
-	var chart1_year_values = [];
 	var chart1_byitem_names = [];
-	var chart1_amount_of_export_values = [];
-	var chart1_amount_of_import_values = [];
-	chart1_amount_of_trade_balance = [];
- 
+	var chart1_bt_item = [];
+  
 	for(var i=0; i<data1.length; i++) {
-	   chart1_byitem_names.push(data1[i]['품목코드'])
-	   chart1_amount_of_export_values.push(parseInt(data1[i]['수출금액']))
-	   chart1_amount_of_import_values.push(parseInt(data1[i]['수입금액']))
-	   chart1_amount_of_trade_balance.push(parseInt(data1[i]['무역수지']))
+	if(parseInt(data1[i]['기간']) == chart1_year_value){
+	   	chart1_byitem_names.push(data1[i]['품목명'])
+	   	if(chart1_val == '수출금액')
+		   chart1_bt_item.push(parseInt(data1[i]['수출금액']))
+		else if(chart1_val == '수입금액')
+			chart1_bt_item.push(parseInt(data1[i]['수입금액']))
+		else
+			chart1_bt_item.push(parseInt(data1[i]['무역수지']))
+	   }
 	}
- 
+  
 	var chart1_config = {
 	   type: 'pie',
 	   data: {
-		  labels: chart1_byitem_names,
-		  datasets: [{
-			backgroundColor: ['rgb(255, 99, 99)', 'rgb(255, 161, 99)', 'rgb(255, 245, 99)', 'rgb(182, 255, 99)','rgb(99, 255, 125)','rgb(99, 245, 255)','rgb(115, 99, 255)','rgb(180, 99, 255)', 'rgb(255, 99, 190)','rgb(145, 83, 55)'],
-			borderWidth: 2,
-			data: chart1_amount_of_export_values
-		  }]
+		 labels: chart1_byitem_names,
+		 datasets: [{
+		  backgroundColor: ['rgb(255, 99, 99)', 'rgb(255, 161, 99)', 'rgb(255, 245, 99)', 'rgb(182, 255, 99)','rgb(99, 255, 125)','rgb(99, 245, 255)','rgb(115, 99, 255)','rgb(180, 99, 255)', 'rgb(255, 99, 190)','rgb(145, 83, 55)'],
+		  borderWidth: 2,
+		  data: chart1_bt_item
+		 }],
 	   },
 	   options: {
-		  cutoutPercentage: 30,
-		  legend: {
-			position:'bottom',
-			padding:5, 
-			labels: {
-			  pointStyle:'circle',
-			  usePointStyle:true
+		 cutoutPercentage: 30,
+		 legend: {
+		  position:'bottom',
+		  padding:5, 
+		  labels: {
+			pointStyle:'circle',
+			usePointStyle:true
+		  }
+		 }, 
+		 responsive: true,
+		 title: {
+		  display: true,
+		  text: '[ '+chart1_year_value+'년 ]'
+		 },
+		 tooltips: {
+		  callbacks: {
+			label: function(tooltipItem, data) {
+			 let value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+			 value = value.toString();
+			 value = value.split(/(?=(?:...)*$)/);
+			 value = value.join(',');
+			 value = data.labels[tooltipItem.index]+': '+value;
+			 return value;
 			}
-		  }, 
-		  responsive: true,
-		  title: {
-			display: true,
-			text: '왜 안돼'
 		  },
-		  tooltips: {
-			callbacks: {
-			  label: function(tooltipItem, data) {
-				let value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
-				value = value.toString();
-				value = value.split(/(?=(?:...)*$)/);
-				value = value.join(',');
-				value = data.labels[tooltipItem.index]+': '+value;
-				return value;
-			  }
-			},
-		  },
-		}
+		 },
+	   }
 	}
-  return chart1_config;
- }
- 
- function chart1_bt_clicked(chart1_bt_year, chart1_bt_id){
+   return chart1_config;
+  }
+  
+  function chart1_bt_clicked(chart1_bt_year, chart1_bt_id){
 	document.getElementsByClassName("chart1_bt, chart1_bt_selected").item(0).className="chart1_bt";
 	document.getElementById(chart1_bt_id).className = "chart1_bt, chart1_bt_selected";
 	
-	chart1_export=chart1_bt_year;
+	chart1_year_value=chart1_bt_year;
 	document.getElementById("chart1_chartContainer").innerHTML = '&nbsp;';
 	document.getElementById("chart1_chartContainer").innerHTML = '<canvas id="chart1"></canvas>';
 	chart_canvas1 = document.getElementById("chart1").getContext("2d");
 	chart1 = new Chart(chart_canvas1, chart1_createChart());
- }
-  //<=chart1
+  }
+
+  function chart1_bt2_clicked(chart1_bt_val, chart1_bt_id){
+	document.getElementsByClassName("chart1_bt2, chart1_bt_selected").item(0).className="chart1_bt2";
+	document.getElementById(chart1_bt_id).className = "chart1_bt2, chart1_bt_selected";
+	
+	chart1_val=chart1_bt_val;
+	document.getElementById("chart1_chartContainer").innerHTML = '&nbsp;';
+	document.getElementById("chart1_chartContainer").innerHTML = '<canvas id="chart1"></canvas>';
+	chart_canvas1 = document.getElementById("chart1").getContext("2d");
+	chart1 = new Chart(chart_canvas1, chart1_createChart());
+  }
+   //<=chart1
 
 //chart2=>
 function chart2_createChart(){

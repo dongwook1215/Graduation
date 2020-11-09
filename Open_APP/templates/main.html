@@ -27,7 +27,8 @@
   var data3_japan = {{ dataset3_japan| safe }}
   var data3_eu = {{ dataset3_eu| safe }}
   var data4 = {{ dataset4| safe }}
-  var chart1_export = '수출금액';
+  var chart1_val = '수출금액';
+  var chart1_year_value = 2017;
   var chart2_year_value = 2015;
   var chart3_country_value = '미국';
 </script>
@@ -42,17 +43,21 @@
           <button type="button" onClick="location.href=main1"><strong>해외 수출입 뉴스</strong></button></a>
       </div><br><br>
 
-      <!-- chart1=> -->
-      <div class="row">
-        <div class="chart1">
+      <!-- chart1=> -->   
+      <div class="row" style="margin: 20px; width: 80%;">
+        <!-- <div class="chart1"> -->
           <h3><품목별 수출입 실적>&nbsp;</h3><br>
           <div class="card shadow">
             <div class="card-header py-3">
-              <button class='chart1_bt, chart1_bt_selected' id='chart1_export' onclick="chart1_bt_clicked('수출금액', 'chart1_export')">수출금액</button>
-              <button class='chart1_bt' id='chart1_import' onclick="chart1_bt_clicked('수입금액', 'chart1_import')">수입금액</button>
-              <button class='chart1_bt' id='chart1_trade_balance' onclick="chart1_bt_clicked('무역수지', 'chart1_trade_balance')">무역수지</button>
-              <h6 class="m-0 font-weight-bold text-primary">수출금액 기준 (단위: 천 불(USD 1,000))</h6>
-            </div><br>
+              <button class='chart1_bt, chart1_bt_selected' id='chart1_2017' onclick="chart1_bt_clicked(2017, 'chart1_2017')">2017</button>
+              <button class='chart1_bt' id='chart1_2018' onclick="chart1_bt_clicked(2018, 'chart1_2018')">2018</button>
+              <button class='chart1_bt' id='chart1_2019' onclick="chart1_bt_clicked(2019, 'chart1_2019')">2019</button> <br><br>
+
+              <button class='chart1_bt2, chart1_bt_selected' id='chart1_export' onclick="chart1_bt2_clicked('수출금액', 'chart1_export')">수출금액</button>
+              <button class='chart1_bt2' id='chart1_import' onclick="chart1_bt2_clicked('수입금액', 'chart1_import')">수입금액</button>
+              <button class='chart1_bt2' id='chart1_trade_balance' onclick="chart1_bt2_clicked('무역수지', 'chart1_trade_balance')">무역수지</button>
+              <h6 class="m-0 font-weight-bold text-primary">금액 기준 (단위: 천 불(USD 1,000))</h6>
+            </div>
             <div class="card-body">
               <div class="chart-bar" id="chart1_chartContainer">
                 <canvas id="chart1"></canvas>
@@ -60,7 +65,7 @@
             </div>
           </div>
         </div>
-      </div>
+      <!-- </div> -->
 
       <!-- chart2=> -->
       <div class="row">
