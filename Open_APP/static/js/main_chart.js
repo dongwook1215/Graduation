@@ -3,17 +3,31 @@ function chart1_createChart(){
 	var chart1_byitem_names = [];
 	var chart1_bt_item = [];
   
-	for(var i=0; i<data1.length; i++) {
-	if(parseInt(data1[i]['기간']) == chart1_year_value){
-	   	chart1_byitem_names.push(data1[i]['품목명'])
-	   	if(chart1_val == '수출금액')
-		   chart1_bt_item.push(parseInt(data1[i]['수출금액']))
-		else if(chart1_val == '수입금액')
-			chart1_bt_item.push(parseInt(data1[i]['수입금액']))
-		else
-			chart1_bt_item.push(parseInt(data1[i]['무역수지']))
-	   }
+	if(chart1_val == '수출금액'){
+		for(var i=0; i<data1_export.length; i++) {
+			if(parseInt(data1_export[i]['기간']) == chart1_year_value){
+				chart1_byitem_names.push(data1_export[i]['품목명'])
+				chart1_bt_item.push(parseInt(data1_export[i]['수출금액']))
+			}
+		}
 	}
+	else if(chart1_val == '수입금액'){
+		for(var i=0; i<data1_import.length; i++) {
+			if(parseInt(data1_import[i]['기간']) == chart1_year_value){
+				chart1_byitem_names.push(data1_import[i]['품목명'])
+				chart1_bt_item.push(parseInt(data1_import[i]['수입금액']))
+			}
+		}
+	}
+	else{
+		for(var i=0; i<data1_tradebalance.length; i++) {
+			if(parseInt(data1_tradebalance[i]['기간']) == chart1_year_value){
+				chart1_byitem_names.push(data1_tradebalance[i]['품목명'])
+				chart1_bt_item.push(parseInt(data1_tradebalance[i]['무역수지']))
+			}
+		}
+	}
+	
   
 	var chart1_config = {
 	   type: 'pie',

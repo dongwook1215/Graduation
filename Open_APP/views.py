@@ -20,9 +20,15 @@ def main(request, year='2015'):
     excel_df = excel_df.drop([excel_df.columns[3], excel_df.columns[4]], axis=1)
     excel_df = excel_df.sort_values(['기간', '수출금액'], ascending=[True, False]).groupby('기간').head(10)
     result = excel_df.to_json(orient='records')
-    dataset1 = json.loads(result)
-    #print('1====================================>')
-    #print(json.dumps(dataset1, indent=4, ensure_ascii=False))
+    dataset1_export = json.loads(result)
+    excel_df = excel_df.sort_values(['기간', '수입금액'], ascending=[True, False]).groupby('기간').head(10)
+    result = excel_df.to_json(orient='records')
+    dataset1_import = json.loads(result)
+    excel_df = excel_df.sort_values(['기간', '무역수지'], ascending=[True, False]).groupby('기간').head(10)
+    result = excel_df.to_json(orient='records')
+    dataset1_tradebalance = json.loads(result)
+    print('1====================================>')
+    print(json.dumps(dataset1_tradebalance, indent=4, ensure_ascii=False))
     
     #chart2 data
     excel_path = os.path.join(settings.BASE_DIR, 'excel_files', 'country_trade.xls')
@@ -169,7 +175,7 @@ def main(request, year='2015'):
     #print('4====================================>')
     #print(json.dumps(dataset4, indent=4, ensure_ascii=False))
 
-    return render(request, 'main.html', {'dataset1': dataset1, 'dataset2': dataset2, 'dataset3_usa': dataset3_usa, 'dataset3_china': dataset3_china, 'dataset3_japan': dataset3_japan, 'dataset3_eu': dataset3_eu, 'dataset4': dataset4, 'dataset41': dataset41, 'dataset42': dataset42, 'year': years})
+    return render(request, 'main.html', {'dataset1_export': dataset1_export, 'dataset1_import': dataset1_import, 'dataset1_tradebalance': dataset1_tradebalance, 'dataset2': dataset2, 'dataset3_usa': dataset3_usa, 'dataset3_china': dataset3_china, 'dataset3_japan': dataset3_japan, 'dataset3_eu': dataset3_eu, 'dataset4': dataset4, 'dataset41': dataset41, 'dataset42': dataset42, 'year': years})
    
    
 def main1(request):

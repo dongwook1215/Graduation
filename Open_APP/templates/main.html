@@ -20,7 +20,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
 
 <script>
-  var data1 = {{ dataset1| safe }}
+  var data1_import = {{ dataset1_import| safe }}
+  var data1_export = {{ dataset1_export| safe }}
+  var data1_tradebalance = {{ dataset1_tradebalance| safe }}
   var data2 = {{ dataset2| safe }}
   var data3_usa = {{ dataset3_usa| safe }}
   var data3_china = {{ dataset3_china| safe }}
