@@ -53,8 +53,21 @@ window.onload=function(){
             success: function (result) {
 				const json_data = JSON.parse(result.json_data);
 				const predicted_data = result.predicted_data;
+				const columns = Object.keys(json_data);
 
+				// 데이터 전처리 및 차트 디스플레이
 				chart_prediction(json_data, predicted_data);
+
+				// 예측한 데이터를 동적으로 html document에 표시
+				let template = '<p></p>';
+				for(let i=1; i<columns.length; i++) {
+					template += '<p>';
+					template += columns[i];
+					template += ' 예측 값: ';
+					template += predicted_data[i-1];
+					template += '</p>';
+				}
+				$('#predicted_display_area').html(template);
             },
             error: function (err) {
                 removeLoading();

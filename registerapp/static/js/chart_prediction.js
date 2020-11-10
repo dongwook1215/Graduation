@@ -32,7 +32,7 @@ function chart_prediction(json_data, predicted_data) {
 	
 		datasets.push(dataset)
 	}
-	
+		
 	var config = {
 		type: "line",
 		data: {
