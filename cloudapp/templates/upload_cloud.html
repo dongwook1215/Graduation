@@ -6,6 +6,11 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>클라우드 페이지</title>
+        <link rel="stylesheet" href="{% static 'css/loading.css' %}"/>
+        <script>
+            let temp = `{% csrf_token %}`;
+        </script>
+        <script type="text/javascript" src="{% static '/js/j_upload_cloud.js' %}"></script>
     </head>
     <style>
 
@@ -18,8 +23,8 @@
             <label>file upload</label>
 			<form action="{% url 'dataTransmit' %}" enctype="multipart/form-data" method="post">
 				{% csrf_token %}
-				<input type="file" name="input_file" class="pull-left">
-				<input type="submit" value="예측" class="btn btn-primary pull-right">
+				<input type="file" name="input_file" class="pull-left" id="file">
+				<input type="button" value="예측" class="btn btn-primary pull-right" id="prediction">
 			</form>
             <div class="card-body">
                 <div class="chart_bar">

@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import url
 from django.conf.urls.static import static
 from django.conf import settings
 import registerapp.views
@@ -31,7 +32,8 @@ urlpatterns = [
     path('Open_APP/',include('Open_APP.urls')),
     path('upload_cloud/',cloudapp.views.upload_cloud,name="upload_cloud"),
     path('upload_cloud/<int:idx>/delete',cloudapp.views.delete,name='delete'),
-    path('dataTransmit', cloudapp.views.dataTransmit, name='dataTransmit')
+    
+    url(r'^upload_cloud/dataTransmit/$', cloudapp.views.dataTransmit, name='dataTransmit'),
 ]
 urlpatterns += \
 static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

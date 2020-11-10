@@ -2,10 +2,11 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Cloud
 from datetime import date
 from .models import User
-
-import json
+from django.http import HttpResponse, JsonResponse
+import simplejson as json
 import pandas as pd
 from .module.trade_predict_model import predict
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -28,8 +29,10 @@ def delete(request, idx):
     cloud.delete()
     return redirect('/upload_cloud')
 
+@csrf_exempt
 def dataTransmit(request):
-    excel_file = request.FILES['input_file']
+    excel_file = request.FILES['file']
+    print("엑셀파일:",excel_file)
 
     predicted_data = predict(excel_file)
     # chart.js 내의 소수점 값에 대한 error를 처리하기 위한 반올림
@@ -43,4 +46,6 @@ def dataTransmit(request):
         'predicted_data': predicted_data
     }
 
-    return render(request, 'upload_cloud.html', context_dict)
+    return JsonResponse(context_dict)
+
+    # return render(request, 'upload_cloud.html', context_dict)
