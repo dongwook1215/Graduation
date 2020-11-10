@@ -45,13 +45,16 @@ window.onload=function(){
             type: "post",
             data : formData,
             processData:false,
-            contentType:false,
+			contentType:false,
             async: true,
             beforeSend: function(){
                 printLoading();
             },
             success: function (result) {
-                console.log(result);
+				const json_data = JSON.parse(result.json_data);
+				const predicted_data = result.predicted_data;
+
+				chart_prediction(json_data, predicted_data);
             },
             error: function (err) {
                 removeLoading();

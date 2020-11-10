@@ -6,6 +6,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>클라우드 페이지</title>
+		<script type="text/javascript" src="{% static '/js/chart.js' %}"></script>
+		<script type="text/javascript" src="{% static '/js/chart_prediction.js' %}"></script>
         <link rel="stylesheet" href="{% static 'css/loading.css' %}"/>
         <script>
             let temp = `{% csrf_token %}`;
@@ -29,14 +31,6 @@
             <div class="card-body">
                 <div class="chart_bar">
                     <canvas id="predicted_chart"></canvas>
-					<script>
-						// 아래 처럼 "|safe"를 붙여야 string이 제대로 표현됨
-						let json_data = {{ json_data|safe }};
-
-						let predicted_data = {{ predicted_data }};
-					</script>
-					<script type="text/javascript" src="{% static '/js/chart.js' %}"></script>
-					<script type="text/javascript" src="{% static '/js/chart_prediction.js' %}"></script>
                 </div>
             </div>
         </div>
