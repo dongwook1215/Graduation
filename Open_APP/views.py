@@ -27,8 +27,8 @@ def main(request, year='2015'):
     excel_df = excel_df.sort_values(['기간', '무역수지'], ascending=[True, False]).groupby('기간').head(10)
     result = excel_df.to_json(orient='records')
     dataset1_tradebalance = json.loads(result)
-    print('1====================================>')
-    print(json.dumps(dataset1_tradebalance, indent=4, ensure_ascii=False))
+    #print('1====================================>')
+    #print(json.dumps(dataset1_tradebalance, indent=4, ensure_ascii=False))
     
     #chart2 data
     excel_path = os.path.join(settings.BASE_DIR, 'excel_files', 'country_trade.xls')
