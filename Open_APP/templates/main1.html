@@ -1,13 +1,12 @@
 {% extends "base.html" %}
 {% load static %}
 {% block contents %}
-
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
 <div>
     <div id="content">
       <div class="container-fluid">
-        <div align="center">
+        <div align="center" class="top-menu">
           <a href="{% url 'main' %}">
           <button type="button" onClick="location.href=main"><strong>수출입 동향 차트</strong></button></a>
           <a href="{% url 'main1' %}">

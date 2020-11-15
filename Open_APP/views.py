@@ -180,21 +180,21 @@ def main(request, year='2015'):
    
 def main1(request):
     headers={'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36 RuxitSynthetic/1.0 v7129538413 t38550 ath9b965f92 altpub cvcv=2'}
-    url='https://search.daum.net/search?w=tot&DA=23A&rtmaxcoll=NNS&q=%EA%B2%BD%EC%A0%9C'
+    url='https://search.daum.net/search?nil_suggest=btn&w=news&DA=SBC&cluster=y&q=%EA%B2%BD%EC%A0%9C'
     raw=requests.get(url,headers=headers)
     html = BeautifulSoup(raw.text, "html.parser")
     r_news_link=html.select('.coll_cont ul li a.f_link_b')
     time = datetime.datetime.today().strftime("%Y/%m/%d %H:%M:%S")
     newslist=[]
     print("갱신시각:", time)
-    url1='https://search.daum.net/search?nil_suggest=btn&w=tot&DA=SBC&q=%ED%86%B5%EC%83%81'
+    url1='https://search.daum.net/search?nil_suggest=btn&w=news&DA=SBC&cluster=y&q=%ED%86%B5%EC%83%81'
     raw1 = requests.get(url1,headers=headers)
     html1 = BeautifulSoup(raw1.text, "html.parser")
     r_news_link1=html1.select('.coll_cont ul li a.f_link_b')
     time = datetime.datetime.today().strftime("%Y/%m/%d %H:%M:%S")
     newslist1=[]
     print("갱신시각:", time)
-    url2='https://search.daum.net/search?nil_suggest=btn&w=tot&DA=SBC&q=%ED%88%AC%EC%9E%90'
+    url2='https://search.daum.net/search?nil_suggest=btn&w=news&DA=SBC&cluster=y&q=%ED%88%AC%EC%9E%90'
     raw2 = requests.get(url2,headers=headers)
     html2 = BeautifulSoup(raw2.text, "html.parser")
     r_news_link2=html2.select('.coll_cont ul li a.f_link_b')
