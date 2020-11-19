@@ -26,7 +26,8 @@ function save_file(event){
     console.log("현재파일: ", ex_file);
 }
 window.onload=function(){
-    console.log("csrf 결과값", temp);
+    
+    // console.log("csrf 결과값", temp);
     let prediction_button=document.getElementById("prediction");
     let file_button=document.getElementById("file");
 
@@ -51,23 +52,32 @@ window.onload=function(){
                 printLoading();
             },
             success: function (result) {
-				const json_data = JSON.parse(result.json_data);
-				const predicted_data = result.predicted_data;
-				const columns = Object.keys(json_data);
 
-				// 데이터 전처리 및 차트 디스플레이
-				chart_prediction(json_data, predicted_data);
+                if(result.error==='no')
+                {
+                    const json_data = JSON.parse(result.json_data);
+                    const predicted_data = result.predicted_data;
+                    const columns = Object.keys(json_data);
 
-				// 예측한 데이터를 동적으로 html document에 표시
-				let template = '<p></p>';
-				for(let i=1; i<columns.length; i++) {
-					template += '<p>';
-					template += columns[i];
-					template += ' 예측 값: ';
-					template += predicted_data[i-1];
-					template += '</p>';
-				}
-				$('#predicted_display_area').html(template);
+                    // 데이터 전처리 및 차트 디스플레이
+                    chart_prediction(json_data, predicted_data);
+
+                    // 예측한 데이터를 동적으로 html document에 표시
+                    let template = '<p></p>';
+                    for(let i=1; i<columns.length; i++) {
+                        template += '<p>';
+                        template += columns[i];
+                        template += ' 예측 값: ';
+                        template += predicted_data[i-1];
+                        template += '</p>';
+                    }
+                    $('#predicted_display_area').html(template);
+                }else{
+                    console.log("에러 발생!!  :" + result.message);
+                    document.getElementById("error_contents").innerHTML="<div align='center'>Error Helper</div><br><br><b>=></b> "+result.message;
+                    openModal('modal1')
+                }
+
             },
             error: function (err) {
                 removeLoading();
@@ -77,4 +87,14 @@ window.onload=function(){
             }
         });
     })
+      
+      $("#modal, .close").on('click',function(){
+        $("#modal").fadeOut(300);
+        $(".modal-con").fadeOut(300);
+      });
+}
+function openModal(modalname){
+    document.get
+    $("#modal").fadeIn(300);
+    $("."+modalname).fadeIn(300);
 }
