@@ -74,7 +74,8 @@ function chart_prediction(json_data, predicted_data) {
 			}
 		}
 	};
-	
+
+	document.getElementById("chart_wrapper").innerHTML = '<canvas id="predicted_chart"></canvas>';
 	const predicted_chart_canvas = document.getElementById("predicted_chart").getContext("2d");
 	const predicted_chart = new Chart(predicted_chart_canvas, config);
 }
