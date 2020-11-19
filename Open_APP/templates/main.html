@@ -116,35 +116,7 @@
         </div>
       </div>
 
-      <!-- chart4=>    
-      <div class="row">
-        <div class="chart1">
-          <h3>그래프를 선택하세요&nbsp;</h3><br>
-          <form id="sample_form" method="POST" action="{% url 'main' %}">
-            {% csrf_token %}
-            <select name="sel_chart">
-              <option value="수출입" selected>수출입 그래프</option>
-              <option value="품목별">품목별 그래프</option>
-            </select>
-            <input type="button" value="변경">
-          </form>
-          <br><br>
-          <div class="card shadow">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">{{default_news}}그래프</h6>
-            </div>
-            <div class="card-body">
-              <div class="chart-bar">
-                <canvas id="chart4"></canvas>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div> -->
+  
       <h3>
         <성질별 국가별 수출입 통계>&nbsp;
       </h3><br>
@@ -156,7 +128,6 @@
           {% for i in year %}
           <option value='{{i}}'>{{i}}</option>
           {% endfor%}
-          <option value='{{i}}'>{{i}}</option>
         </select>
         <button type="submit" class="btn btn-primary btn-sm">선택</button>
       </form>

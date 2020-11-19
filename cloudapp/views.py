@@ -7,9 +7,11 @@ import simplejson as json
 import pandas as pd
 from .module.trade_predict_model import predict
 from django.views.decorators.csrf import csrf_exempt
+from .decorators import *
 
 # Create your views here.
 
+@login_message_required
 def upload_cloud(request):
     if request.method =="POST":
         subject = request.POST['subject']

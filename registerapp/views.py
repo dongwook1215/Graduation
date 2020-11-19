@@ -8,16 +8,13 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_text
 from django.contrib.auth.tokens import default_token_generator
-from django.utils.decorators import method_decorator
-from .decorators import *
-from django.contrib.auth.decorators import login_required
+#from django.utils.decorators import method_decorator
+#from .decorators import *
+#from django.contrib.auth.decorators import login_required
 from django.views.generic import View
 from django.contrib import messages
 
 # Create your views here.
-
-def nomain(request):
-    return render(request, 'nomain.html')
 
 def login(request):
     if request.method=='POST':

@@ -137,13 +137,13 @@ def main(request, year='2015'):
     #chart4 data
     if request.method == "POST":
         year = request.POST['year']
-    excel_path = os.path.join(settings.BASE_DIR, 'excel_files', 'small4.xlsx')
-    excel_df = pd.read_excel(excel_path, header=4, thousands=',')
-    excel_df = excel_df.drop(0)
-    excel_df = excel_df.drop(
-        [excel_df.columns[4], excel_df.columns[5], excel_df.columns[6]], axis=1)
-    excel_df = excel_df.sort_values(by='수출금액', ascending=False).head(3)
-    result = excel_df.to_json(orient='records')
+    # excel_path = os.path.join(settings.BASE_DIR, 'excel_files', 'small4.xlsx')
+    # excel_df = pd.read_excel(excel_path, header=4, thousands=',')
+    # excel_df = excel_df.drop(0)
+    # excel_df = excel_df.drop(
+    #     [excel_df.columns[4], excel_df.columns[5], excel_df.columns[6]], axis=1)
+    # excel_df = excel_df.sort_values(by='수출금액', ascending=False).head(3)
+    # result = excel_df.to_json(orient='records')
 
     dataset4 = json.loads(result)
     im_path = os.path.join(settings.BASE_DIR, 'excel_files', '성질별수입.xls')
