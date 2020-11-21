@@ -73,7 +73,7 @@ def predict(file_path):
     # 예측에서의 증감을 구해 normalization 되지않은 값에 증감비율을 곱해 결과값으로 냄
     prediction_results = []
     for i in range(1, 3):
-        prediction_results.append(model.predict(np.array([[data[i]]])))
+        prediction_results.append(model.predict(np.array([[data[-i]]])))
     increase_ratio = prediction_results[0] / prediction_results[1]
     results = increase_ratio * last_data
 
