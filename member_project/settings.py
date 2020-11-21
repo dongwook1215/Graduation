@@ -56,7 +56,8 @@ INSTALLED_APPS = [
     'registerapp',
     'cloudapp',
     'jobapp',
-    'Open_APP'
+    'Open_APP',
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -145,6 +146,21 @@ STATIC_DIR=[os.path.join(BASE_DIR, 'registerapp', 'static')]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# 아마조 클라우드(S3) 사용하기(시작)
+DEFAULT_FILE_STORAGE = 'member_project.storages.MediaStorage'
+STATIC_STORAGE = 'member_project.storages.StaticStorage'
+
+MEDIAFILES_LOCATION = 'media' 
+STATICFILES_LOCATION = 'static'
+# static 파일들은 s3->static으로 저장되며 media(동적파일)은 s3->media로 저장이 됩니다.
+
+AWS_ACCESS_KEY_ID = '아마존 접근 키'
+AWS_SECRET_ACCESS_KEY = '아마존 접근 비밀 번호'
+AWS_STORAGE_BUCKET_NAME = '버킷 이름'
+# (끝)
+# 실행이 안되는 경우 (시작)/(끝) 주석 처리 후 사용하면 됩니당.....
+
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.naver.com'
 EMAIL_HOST_USER = '아이디'
@@ -156,3 +172,4 @@ DEFAULT_FROM_MAIL = '아이디'
 LOGIN_URL = '/login/'          # 로그인 URL
 LOGIN_REDIRECT_URL = '/'  # 로그인 후 URL
 LOGOUT_REDIRECT_URL = '/'            # 로그아웃 후 URL
+
