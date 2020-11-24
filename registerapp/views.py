@@ -109,7 +109,7 @@ def logout(request):
 
 def agreement(request):
     if request.method=='POST':
-        if request.POST.get('agreement1', False) and request.POST.get('agreement2', False):
+        if request.POST.get('agreement1', False) and request.POST.get('agreement2', False) and request.POST.get('agreement3', False):
             request.session['agreement'] = True
             return redirect('/register/join/')
         else:
