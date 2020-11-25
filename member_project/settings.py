@@ -154,9 +154,9 @@ MEDIAFILES_LOCATION = 'media'
 STATICFILES_LOCATION = 'static'
 # static 파일들은 s3->static으로 저장되며 media(동적파일)은 s3->media로 저장이 됩니다.
 
-AWS_ACCESS_KEY_ID = '아마존 접근 키'
-AWS_SECRET_ACCESS_KEY = '아마존 키'
-AWS_STORAGE_BUCKET_NAME = '버킷 이름'
+AWS_ACCESS_KEY_ID = ''
+AWS_SECRET_ACCESS_KEY = ''
+AWS_STORAGE_BUCKET_NAME = ''
 # (끝)
 # 실행이 안되는 경우 (시작)/(끝) 주석 처리 후 사용하면 됩니당.....
 
